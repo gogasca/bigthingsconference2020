@@ -25,7 +25,7 @@ jobs:
          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT }}
          project_id: ${{ secrets.PROJECT_ID }}
          export_default_credentials: true
-      - run: echo -n ${{ secrets.GCP_SERVICE_ACCOUNT }} > $GOOGLE_APPLICATION_CREDENTIALS
+      - run: echo -n ${{ secrets.GCP_SERVICE_ACCOUNT }} | base64 --decode > $GOOGLE_APPLICATION_CREDENTIALS
 
       # Notebook execution via AI Platform training
       - name: install gcloud-notebook-training
