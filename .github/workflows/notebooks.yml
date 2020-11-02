@@ -2,8 +2,6 @@ name: notebooks-ci
 
 # Run this workflow every time a new commit pushed to your repository
 on: push
-env:
-    GOOGLE_APPLICATION_CREDENTIALS: key.json
 jobs:
   # Set the job key. The key is displayed as the job name
   # when a job name is not provided
@@ -12,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: docker.io/library/python:3.7
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: key.json
     steps:
       - name: checkout 
         uses: actions/checkout@v2
@@ -25,7 +25,7 @@ jobs:
          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT }}
          project_id: ${{ secrets.PROJECT_ID }}
          export_default_credentials: true
-      - run: echo -n ${{ secrets.GCP_SERVICE_ACCOUNT }} > $GOOGLE_APPLICATION_CREDENTIALS
+      - run: bash -c echo -n ${{ secrets.GCP_SERVICE_ACCOUNT }} > $GOOGLE_APPLICATION_CREDENTIALS
 
       # Notebook execution via AI Platform training
       - name: install gcloud-notebook-training
