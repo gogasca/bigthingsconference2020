@@ -31,5 +31,5 @@ jobs:
           for i in ${{ steps.getfile.outputs.files }}
           do
               echo 'Running $i in AI Platform Training'
-              gcloud-notebook-training --input-notebook $i              
+              gcloud-notebook-training --input-notebook $i  --project-id ${{ secrets.PROJECT_ID }}            
           done
