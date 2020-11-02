@@ -17,6 +17,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Setup gcloud CLI
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+         version: '316.0.0'
+         service_account_key: ${{ secrets.GCE_SA_KEY }}
+         project_id: ${{ secrets.PROJECT_ID }}
+
       - name: install gcloud-notebook-training
         uses: BSFishy/pip-action@v1
         with:
