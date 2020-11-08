@@ -33,8 +33,6 @@ jobs:
     steps:
     - uses: actions/setup-python@v1
     - uses: actions/checkout@v2
-    - name: Fetch master branch
-      run: git fetch -u origin master:master
     - name: Install ipython
       run: python3 -m pip install -U ipython
     - name: Install jupyter
