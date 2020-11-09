@@ -20,13 +20,15 @@ jobs:
           fetch-depth: 0
 
       # Setup gcloud CLI
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      - name: setup GCP authentication 
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
          version: '316.0.0'
          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT }}
          project_id: ${{ secrets.PROJECT_ID }}
          export_default_credentials: true
-      - run: echo -n ${{ secrets.GCP_SERVICE_ACCOUNT }} | base64 --decode > $GOOGLE_APPLICATION_CREDENTIALS
+      - name: setup GOOGLE_APPLICATION_CREDENTIALS
+        run: echo -n ${{ secrets.GCP_SERVICE_ACCOUNT }} | base64 --decode > $GOOGLE_APPLICATION_CREDENTIALS
 
       # Notebook execution via AI Platform training
       - name: install gcloud-notebook-training
