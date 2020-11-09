@@ -20,6 +20,7 @@ jobs:
           fetch-depth: 0
 
       # Setup gcloud CLI
+      - name: setup gcp credentials
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
          version: '316.0.0'
@@ -34,11 +35,11 @@ jobs:
         with:
           packages: |
             gcloud-notebook-training
-      - name: get changed files
+      - name: get changed notebooks
         id: getfile        
         run: |
           echo "::set-output name=files::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | grep -i .ipynb | xargs)"
-      - name: echo the changed files
+      - name: execute notebooks
         run: |
           for i in ${{ steps.getfile.outputs.files }}
           do
